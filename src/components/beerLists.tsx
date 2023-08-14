@@ -2,18 +2,20 @@ import * as React from "react";
 
 import Tooltip from "./ui/tooltip";
 
+import houzzBear from "../assets/houzz-beer.png";
+
 export interface BeerListProps {
   id: number;
   name: string;
   tagline: string;
   description: string;
   image_url: string;
-  ingredients: string[];
+  ingredients?: string[];
 }
 
 export default function BeerList({ beer }: { beer: BeerListProps }) {
   const ingredients = React.useMemo(
-    () => beer.ingredients.join(", "),
+    () => beer.ingredients && beer.ingredients.join(", "),
     [beer.ingredients],
   );
   return (
@@ -24,19 +26,21 @@ export default function BeerList({ beer }: { beer: BeerListProps }) {
       <div className='flex-none  group relative'>
         <img
           className='h-24 w-24 object-contain'
-          src={beer.image_url}
+          src={beer.image_url || houzzBear}
           alt={beer.name}
         />
-        <Tooltip>
-          <p className='text-[10px] text-gray-300'>
-            Ingredients: {ingredients}
-          </p>
-        </Tooltip>
+        {ingredients && (
+          <Tooltip>
+            <p className='text-[10px] text-gray-300'>
+              Ingredients: {ingredients}
+            </p>
+          </Tooltip>
+        )}
       </div>
-      <div className='min-w-0'>
+      <div className='min-w-0 px-3'>
         <h2 className='text-xl font-medium'>{beer.name}</h2>
         <p className='text-gold py-2'>{beer.tagline}</p>
-        <p className='text-xs'>{beer.description}</p>
+        <p className='text-sm break-words'>{beer.description}</p>
       </div>
     </li>
   );

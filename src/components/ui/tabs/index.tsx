@@ -13,8 +13,8 @@ interface TabProps {
 
 export default function Tabs({ tabItems, selectedTab, onSelectTab }: TabProps) {
   return (
-    <div className=''>
-      <div className='sm:hidden'>
+    <div className='mb-4'>
+      <div className='sm:hidden my-5'>
         <label htmlFor='tabs' className='sr-only'>
           Select a tab
         </label>
@@ -28,7 +28,9 @@ export default function Tabs({ tabItems, selectedTab, onSelectTab }: TabProps) {
           onChange={(e) => onSelectTab(e.target.value)}
         >
           {tabItems.map((tab) => (
-            <option key={tab.name}>{tab.name}</option>
+            <option key={tab.key} value={tab.key}>
+              {tab.name}
+            </option>
           ))}
         </select>
       </div>
@@ -41,9 +43,9 @@ export default function Tabs({ tabItems, selectedTab, onSelectTab }: TabProps) {
                 onClick={() => onSelectTab(tab.key)}
                 className={classNames(
                   tab.key === selectedTab
-                    ? "border-indigo-500 text-indigo-600"
+                    ? "border-primary text-primary/80"
                     : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
-                  "whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium",
+                  "whitespace-nowrap border-b-2 py-4 px-1 text-sm font-bold ring-0",
                 )}
               >
                 {tab.name}
